@@ -14,105 +14,108 @@
 </head>
 <body>
 
-<!-- ═══════════════════════════════════════════════════════════════ AURORA BG -->
+<!-- AURORA -->
 <div class="aurora-bg">
   <div class="orb orb-1"></div>
   <div class="orb orb-2"></div>
   <div class="orb orb-3"></div>
+  <div class="orb orb-4"></div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ HEADER -->
+<!-- HEADER -->
 <header class="header">
   <div class="header-inner">
+
     <div class="logo">
       <div class="logo-glyph">
-        <svg width="36" height="36" viewBox="0 0 36 36" fill="none">
-          <path d="M18 3L33 12V24L18 33L3 24V12L18 3Z" stroke="url(#lg1)" stroke-width="1.5" fill="none"/>
-          <path d="M18 10L26 15V25L18 30L10 25V15L18 10Z" fill="url(#lg2)" opacity="0.3"/>
-          <path d="M12 16L18 13L24 16V22L18 25L12 22V16Z" fill="url(#lg1)"/>
+        <div class="logo-glyph-ring"></div>
+        <svg width="28" height="28" viewBox="0 0 36 36" fill="none">
+          <path d="M18 4L32 12V24L18 32L4 24V12L18 4Z" stroke="url(#hg1)" stroke-width="1.5" fill="none"/>
+          <path d="M18 10L28 16V24L18 30L8 24V16L18 10Z" fill="url(#hg2)" opacity="0.15"/>
+          <path d="M13 17L18 14L23 17V22L18 25L13 22V17Z" fill="url(#hg1)"/>
           <defs>
-            <linearGradient id="lg1" x1="3" y1="3" x2="33" y2="33">
+            <linearGradient id="hg1" x1="4" y1="4" x2="32" y2="32">
               <stop offset="0%" stop-color="#A78BFA"/>
               <stop offset="100%" stop-color="#34D399"/>
             </linearGradient>
-            <linearGradient id="lg2" x1="0" y1="0" x2="36" y2="36">
-              <stop offset="0%" stop-color="#A78BFA"/>
-              <stop offset="100%" stop-color="#34D399"/>
+            <linearGradient id="hg2" x1="4" y1="4" x2="32" y2="32">
+              <stop offset="0%" stop-color="#8B5CF6"/>
+              <stop offset="100%" stop-color="#10B981"/>
             </linearGradient>
           </defs>
         </svg>
       </div>
       <div class="logo-text">
-        <span class="logo-name">Nexo <span class="logo-ai">AI</span></span>
+        <span class="logo-name">Nexo <em>AI</em></span>
         <span class="logo-team">by Nexo Mind Team</span>
       </div>
     </div>
 
     <div class="mode-toggle-wrap">
       <button class="mode-btn active" id="btn-normal" onclick="switchMode('normal')">
-        <span class="mode-dot normal-dot"></span>
-        Normal
+        <span class="mode-dot normal-dot"></span>Normal
       </button>
       <button class="mode-btn" id="btn-creative" onclick="switchMode('creative')">
-        <span class="mode-dot creative-dot"></span>
-        Creative
+        <span class="mode-dot creative-dot"></span>Creative
       </button>
       <div class="mode-slider" id="mode-slider"></div>
     </div>
 
     <div class="header-actions">
       <button class="icon-btn" id="sidebar-toggle" onclick="toggleSidebar()" title="Checkpoints">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/>
-          <rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/>
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
+          <rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>
         </svg>
       </button>
-      <button class="icon-btn" onclick="clearChat()" title="Clear chat">
-        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6M14 11v6"/>
-          <path d="M9 6V4h6v2"/>
+      <button class="icon-btn" onclick="clearChat()" title="Clear">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
+          <path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
         </svg>
       </button>
     </div>
+
   </div>
 </header>
 
-<!-- ═══════════════════════════════════════════════════════════════ MAIN LAYOUT -->
+<!-- LAYOUT -->
 <div class="app-layout">
 
   <!-- SIDEBAR -->
   <aside class="sidebar" id="sidebar">
     <div class="sidebar-header">
-      <span class="sidebar-title">Checkpoints</span>
-      <button class="icon-btn small" onclick="clearCheckpoints()">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+      <span class="sidebar-title">Build History</span>
+      <button class="icon-btn small" onclick="clearCheckpoints()" title="Clear all">
+        <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/>
         </svg>
       </button>
     </div>
     <div class="sidebar-list" id="checkpoint-list">
       <div class="sidebar-empty">
-        <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" opacity="0.3">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.2" opacity="0.2">
           <path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/>
         </svg>
-        <p>No builds yet.<br/>Switch to Creative Mode to start.</p>
+        <p>No builds yet.<br/>Use Creative Mode to build apps.</p>
       </div>
     </div>
   </aside>
 
-  <!-- MAIN CONTENT -->
+  <!-- MAIN -->
   <main class="main-content" id="main-content">
 
-    <!-- ── NORMAL MODE ── -->
+    <!-- NORMAL MODE -->
     <div class="mode-panel" id="panel-normal">
       <div class="chat-area" id="chat-area">
         <div class="welcome-screen" id="welcome-screen">
           <div class="welcome-icon">
-            <svg width="56" height="56" viewBox="0 0 36 36" fill="none">
-              <path d="M18 3L33 12V24L18 33L3 24V12L18 3Z" stroke="url(#wlg1)" stroke-width="1.5" fill="none"/>
-              <path d="M12 16L18 13L24 16V22L18 25L12 22V16Z" fill="url(#wlg1)"/>
+            <div class="welcome-icon-bg"></div>
+            <svg width="44" height="44" viewBox="0 0 36 36" fill="none">
+              <path d="M18 4L32 12V24L18 32L4 24V12L18 4Z" stroke="url(#wg1)" stroke-width="1.5" fill="none"/>
+              <path d="M13 17L18 14L23 17V22L18 25L13 22V17Z" fill="url(#wg1)"/>
               <defs>
-                <linearGradient id="wlg1" x1="3" y1="3" x2="33" y2="33">
+                <linearGradient id="wg1" x1="4" y1="4" x2="32" y2="32">
                   <stop offset="0%" stop-color="#A78BFA"/>
                   <stop offset="100%" stop-color="#34D399"/>
                 </linearGradient>
@@ -120,30 +123,32 @@
             </svg>
           </div>
           <h2 class="welcome-title">Hello, I'm Nexo AI</h2>
-          <p class="welcome-sub">Ask me anything. I'm here to help.</p>
+          <p class="welcome-sub">Your intelligent assistant by Nexo Mind Team.<br/>Ask me anything — I'm here to help.</p>
           <div class="quick-prompts">
-            <button class="quick-btn" onclick="quickPrompt('Explain quantum computing simply')">Explain quantum computing</button>
-            <button class="quick-btn" onclick="quickPrompt('Write a Python web scraper')">Write a Python scraper</button>
-            <button class="quick-btn" onclick="quickPrompt('What are the best productivity tips?')">Productivity tips</button>
-            <button class="quick-btn" onclick="quickPrompt('Help me debug my code')">Debug my code</button>
+            <button class="quick-btn" onclick="quickPrompt('Explain quantum computing in simple terms')"><span>⚛️ Quantum computing</span></button>
+            <button class="quick-btn" onclick="quickPrompt('Write a Python web scraper with BeautifulSoup')"><span>🐍 Python scraper</span></button>
+            <button class="quick-btn" onclick="quickPrompt('What are the best productivity techniques?')"><span>⚡ Productivity tips</span></button>
+            <button class="quick-btn" onclick="quickPrompt('Help me understand machine learning basics')"><span>🤖 ML basics</span></button>
           </div>
         </div>
         <div id="messages"></div>
       </div>
     </div>
 
-    <!-- ── CREATIVE MODE ── -->
+    <!-- CREATIVE MODE -->
     <div class="mode-panel hidden" id="panel-creative">
       <div class="creative-workspace" id="creative-workspace">
 
-        <!-- Idle state -->
+        <!-- Idle -->
         <div class="creative-idle" id="creative-idle">
           <div class="creative-idle-icon">
             <div class="pulse-ring"></div>
-            <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="url(#cidlg)" stroke-width="1.5">
+            <div class="pulse-ring-2"></div>
+            <div class="creative-idle-icon-bg"></div>
+            <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="url(#cidg)" stroke-width="1.5">
               <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>
               <defs>
-                <linearGradient id="cidlg" x1="3" y1="2" x2="21" y2="22">
+                <linearGradient id="cidg" x1="3" y1="2" x2="21" y2="22">
                   <stop offset="0%" stop-color="#A78BFA"/>
                   <stop offset="100%" stop-color="#34D399"/>
                 </linearGradient>
@@ -151,16 +156,16 @@
             </svg>
           </div>
           <h2 class="creative-idle-title">Creative Mode</h2>
-          <p class="creative-idle-sub">Describe any app, website, game, or tool.<br/>Nexo AI will build it autonomously.</p>
+          <p class="creative-idle-sub">Describe any app, website, game, or tool.<br/>Nexo AI builds it autonomously — step by step.</p>
           <div class="quick-prompts">
-            <button class="quick-btn purple" onclick="quickCreative('Build a beautiful todo app with categories and dark theme')">Todo App</button>
-            <button class="quick-btn purple" onclick="quickCreative('Create a real-time markdown editor with preview')">Markdown Editor</button>
-            <button class="quick-btn purple" onclick="quickCreative('Build a personal finance tracker with charts')">Finance Tracker</button>
-            <button class="quick-btn purple" onclick="quickCreative('Create a Pomodoro timer with ambient sounds')">Pomodoro Timer</button>
+            <button class="quick-btn purple" onclick="quickCreative('Build a beautiful todo app with dark theme, categories, and priority tags')"><span>✅ Todo App</span></button>
+            <button class="quick-btn purple" onclick="quickCreative('Create a real-time markdown editor with split-pane live preview')"><span>📝 Markdown Editor</span></button>
+            <button class="quick-btn purple" onclick="quickCreative('Build a personal finance tracker with charts and budget categories')"><span>💰 Finance Tracker</span></button>
+            <button class="quick-btn purple" onclick="quickCreative('Create a Pomodoro timer with session tracking and ambient mode')"><span>🍅 Pomodoro Timer</span></button>
           </div>
         </div>
 
-        <!-- Pipeline (shown during generation) -->
+        <!-- Pipeline -->
         <div class="pipeline hidden" id="pipeline">
           <div class="pipeline-header">
             <h3 id="pipeline-app-name">Building your app...</h3>
@@ -178,7 +183,7 @@
             <div class="step-card" id="step-plan">
               <div class="step-icon">📁</div>
               <div class="step-info">
-                <div class="step-title">Planning Files</div>
+                <div class="step-title">Planning File Structure</div>
                 <div class="step-desc" id="step-plan-desc">Waiting...</div>
               </div>
               <div class="step-status pending" id="step-plan-status">○</div>
@@ -194,7 +199,7 @@
             <div class="step-card" id="step-review">
               <div class="step-icon">🔍</div>
               <div class="step-info">
-                <div class="step-title">Code Review</div>
+                <div class="step-title">Automated Code Review</div>
                 <div class="step-desc" id="step-review-desc">Waiting...</div>
               </div>
               <div class="step-status pending" id="step-review-status">○</div>
@@ -210,7 +215,7 @@
           </div>
         </div>
 
-        <!-- Result panel -->
+        <!-- Result -->
         <div class="result-panel hidden" id="result-panel">
           <div class="result-header">
             <div class="result-info">
@@ -219,14 +224,14 @@
             </div>
             <div class="result-actions">
               <button class="action-btn secondary" onclick="showFiles()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                   <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
                   <polyline points="14 2 14 8 20 8"/>
                 </svg>
-                Files
+                View Files
               </button>
               <button class="action-btn primary" onclick="openPreview()">
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
                   <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
                   <circle cx="12" cy="12" r="3"/>
                 </svg>
@@ -235,15 +240,15 @@
             </div>
           </div>
 
-          <!-- Checkpoint Card -->
           <div class="checkpoint-card" id="checkpoint-card">
             <div class="checkpoint-screenshot" id="checkpoint-screenshot">
               <div class="screenshot-placeholder">
-                <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
-                  <rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/>
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5">
+                  <rect x="3" y="3" width="18" height="18" rx="2"/>
+                  <circle cx="8.5" cy="8.5" r="1.5"/>
                   <polyline points="21 15 16 10 5 21"/>
                 </svg>
-                <span>Screenshot</span>
+                <span>Preview</span>
               </div>
             </div>
             <div class="checkpoint-meta">
@@ -254,13 +259,12 @@
                 <span class="cp-stat" id="cp-time">just now</span>
               </div>
               <div class="checkpoint-score" id="cp-score">
-                <span class="score-label">Build Score</span>
+                <span class="score-label">Score</span>
                 <span class="score-value">100</span>
               </div>
             </div>
           </div>
 
-          <!-- File Viewer -->
           <div class="file-viewer hidden" id="file-viewer">
             <div class="file-tabs" id="file-tabs"></div>
             <div class="file-content" id="file-content"></div>
@@ -273,7 +277,7 @@
   </main>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ INPUT BAR -->
+<!-- INPUT BAR -->
 <div class="input-bar-wrap" id="input-bar-wrap">
   <div class="input-bar">
     <div class="input-inner">
@@ -286,8 +290,9 @@
         oninput="autoResize(this)"
       ></textarea>
       <button class="send-btn" id="send-btn" onclick="handleSend()">
-        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
-          <line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/>
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+          <line x1="22" y1="2" x2="11" y2="13"/>
+          <polygon points="22 2 15 22 11 13 2 9 22 2"/>
         </svg>
       </button>
     </div>
@@ -298,52 +303,52 @@
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ PREVIEW MODAL -->
+<!-- PREVIEW MODAL -->
 <div class="modal-overlay hidden" id="preview-modal">
   <div class="preview-modal">
     <div class="preview-topbar">
       <div class="preview-title">
-        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/>
+        <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/>
+          <circle cx="12" cy="12" r="3"/>
         </svg>
-        Nexo AI Preview
+        Nexo AI Live Preview
       </div>
       <div class="preview-actions">
-        <button class="icon-btn" onclick="downloadApp()" title="Download">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+        <button class="icon-btn" onclick="downloadApp()" title="Download app">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/>
+            <polyline points="7 10 12 15 17 10"/>
+            <line x1="12" y1="15" x2="12" y2="3"/>
           </svg>
         </button>
         <button class="icon-btn" onclick="closePreview()" title="Close">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-            <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+            <line x1="18" y1="6" x2="6" y2="18"/>
+            <line x1="6" y1="6" x2="18" y2="18"/>
           </svg>
         </button>
       </div>
     </div>
-
-    <!-- Error Banner -->
     <div class="error-banner hidden" id="error-banner">
       <div class="error-banner-inner">
         <span class="error-icon">⚠️</span>
         <span class="error-msg" id="error-msg">Problem detected</span>
         <button class="fix-btn" id="fix-btn" onclick="autoFix()">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
             <path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/>
           </svg>
-          Auto-Fix
+          Auto-Fix with AI
         </button>
       </div>
     </div>
-
     <div class="preview-frame-wrap">
       <iframe id="preview-iframe" class="preview-iframe" sandbox="allow-scripts allow-forms allow-modals allow-popups"></iframe>
     </div>
   </div>
 </div>
 
-<!-- ═══════════════════════════════════════════════════════════════ TOAST -->
+<!-- TOAST -->
 <div class="toast hidden" id="toast"></div>
 
 <script src="app.js"></script>
