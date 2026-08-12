@@ -62,6 +62,11 @@
     </div>
 
     <div class="header-actions">
+      <button class="icon-btn" id="btn-github" onclick="switchMode('github')" title="GitHub Integration">
+        <svg width="17" height="17" viewBox="0 0 24 24" fill="currentColor">
+          <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+        </svg>
+      </button>
       <button class="icon-btn" id="sidebar-toggle" onclick="toggleSidebar()" title="Checkpoints">
         <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/>
@@ -132,6 +137,97 @@
           </div>
         </div>
         <div id="messages"></div>
+      </div>
+    </div>
+
+    <!-- GITHUB MODE (Manus-style: Read → Edit → Approve → Push) -->
+    <div class="mode-panel hidden" id="panel-github">
+      <div class="github-workspace" id="github-workspace">
+
+        <!-- Idle -->
+        <div class="github-idle" id="github-idle">
+          <div class="github-idle-icon">
+            <div class="pulse-ring"></div>
+            <svg width="38" height="38" viewBox="0 0 24 24" fill="currentColor" opacity="0.85">
+              <path d="M12 2C6.477 2 2 6.477 2 12c0 4.42 2.865 8.166 6.839 9.489.5.092.682-.217.682-.482 0-.237-.008-.866-.013-1.7-2.782.604-3.369-1.34-3.369-1.34-.454-1.156-1.11-1.463-1.11-1.463-.908-.62.069-.608.069-.608 1.003.07 1.531 1.03 1.531 1.03.892 1.529 2.341 1.087 2.91.831.092-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.029-2.683-.103-.253-.446-1.27.098-2.647 0 0 .84-.269 2.75 1.025A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.294 2.747-1.025 2.747-1.025.546 1.377.203 2.394.1 2.647.64.699 1.028 1.592 1.028 2.683 0 3.842-2.339 4.687-4.566 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.743 0 .267.18.578.688.48C19.138 20.161 22 16.416 22 12c0-5.523-4.477-10-10-10z"/>
+            </svg>
+          </div>
+          <h2 class="github-idle-title">GitHub Integration</h2>
+          <p class="github-idle-sub">Connect to your GitHub repo and work like an agent:<br/>Read any file → Edit a section → Approve the diff → Auto-push.</p>
+          <div class="quick-prompts">
+            <button class="quick-btn purple" onclick="ghLoadFiles()"><span>📂 Load Repo Files</span></button>
+            <button class="quick-btn purple" onclick="ghReadFile('README.md')"><span>📖 Read README.md</span></button>
+            <button class="quick-btn purple" onclick="ghReadFile('server.js')"><span>⚙️ Read server.js</span></button>
+            <button class="quick-btn purple" onclick="ghReadFile('public/app.js')"><span>🖥️ Read app.js</span></button>
+          </div>
+          <div class="gh-repo-info" id="gh-repo-info">${GITHUB_REPO_OWNER}/${GITHUB_REPO_NAME} · branch: ${GITHUB_BRANCH}</div>
+        </div>
+
+        <!-- File List (repo browser) -->
+        <div class="gh-file-list hidden" id="gh-file-list">
+          <div class="gh-panel-header">
+            <h3>Repository Files</h3>
+            <button class="icon-btn small" onclick="ghBackToIdle()" title="Back">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><polyline points="15 18 9 12 15 6"/></svg>
+            </button>
+          </div>
+          <div class="gh-file-items" id="gh-file-items"></div>
+        </div>
+
+        <!-- Read / Edit working area -->
+        <div class="gh-work-area hidden" id="gh-work-area">
+          <div class="gh-panel-header">
+            <div class="gh-file-title" id="gh-file-title">file</div>
+            <div class="gh-mode-badge reading" id="gh-mode-badge">● READING</div>
+            <div style="display:flex;gap:6px">
+              <button class="icon-btn small" id="gh-edit-toggle-btn" onclick="ghToggleEdit()" title="Edit this file">✏️</button>
+              <button class="icon-btn small" onclick="ghBackToIdle()" title="Back">✕</button>
+            </div>
+          </div>
+
+          <div class="gh-read-status hidden" id="gh-read-status">
+            <div class="gh-read-line" id="gh-read-line"></div>
+            <div class="gh-read-progress" id="gh-read-progress"></div>
+          </div>
+
+          <div class="gh-file-content-wrap" id="gh-file-content-wrap">
+            <pre class="gh-file-content" id="gh-file-content"></pre>
+          </div>
+
+          <!-- Edit instruction input -->
+          <div class="gh-edit-input hidden" id="gh-edit-input">
+            <textarea id="gh-edit-instruction" class="prompt-textarea" rows="2" placeholder="Describe the change you want (e.g. 'Change the welcome title to Hello Nexo')" onkeydown="if(event.key==='Enter'&&!event.shiftKey){event.preventDefault();ghRunEdit();}"></textarea>
+            <button class="send-btn" id="gh-edit-send-btn" onclick="ghRunEdit()">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <line x1="22" y1="2" x2="11" y2="13"/>
+                <polygon points="22 2 15 22 11 13 2 9 22 2"/>
+              </svg>
+            </button>
+          </div>
+        </div>
+
+        <!-- Approve card (diff + accept, auto push) -->
+        <div class="gh-approve-card hidden" id="gh-approve-card">
+          <div class="gh-approve-header">
+            <div>
+              <h3 class="gh-approve-title" id="gh-approve-title">Pending Change</h3>
+              <p class="gh-approve-summary" id="gh-approve-summary">—</p>
+            </div>
+            <span class="gh-status waiting" id="gh-approve-status">● Waiting for approval</span>
+          </div>
+          <div class="gh-diff-block" id="gh-diff-block"></div>
+          <div class="gh-approve-actions">
+            <button class="action-btn secondary" onclick="ghRejectEdit()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+              Reject
+            </button>
+            <button class="action-btn primary" id="gh-accept-btn" onclick="ghAcceptEdit()">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"/></svg>
+              Accept &amp; Push to GitHub
+            </button>
+          </div>
+        </div>
+
       </div>
     </div>
 
@@ -351,6 +447,11 @@
 <!-- TOAST -->
 <div class="toast hidden" id="toast"></div>
 
-<script src="app.js"></script>
+  <script>
+    window.GH_REPO_OWNER = 'sumithk850-debug';
+    window.GH_REPO_NAME = 'Nexo';
+    window.GH_BRANCH = 'main';
+  </script>
+  <script src="app.js"></script>
 </body>
 </html>
