@@ -43,5 +43,3 @@ npm run dev
 
 ---
 *Powered by Nexo Mind Team · Groq + Llama 4 Scout*
-
-GitHub mode now supported — read, edit, approve, push.
